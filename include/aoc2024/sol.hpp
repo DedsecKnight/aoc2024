@@ -2,6 +2,8 @@
 
 #include <bits/stdc++.h>
 
+#define SOLUTION void aoc2024::solution::solve() const noexcept
+
 using namespace std;
 using ll = long long;
 
