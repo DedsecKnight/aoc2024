@@ -12,6 +12,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 endif()
 
-set(CURRENT_DATE 9)
+set(CURRENT_DATE 10)
 add_subdirectory(src)
 add_subdirectory(apps)
