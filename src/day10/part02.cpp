@@ -1,3 +1,48 @@
 #include "aoc2024/sol.hpp"
 
-SOLUTION {}
+constexpr const array<int, 4> dx{-1, 1, 0, 0};
+constexpr const array<int, 4> dy{0, 0, -1, 1};
+
+SOLUTION {
+  string line;
+  vector<string> grid;
+  while (cin >> line) {
+    grid.push_back(line);
+  }
+  int n = int(grid.size()), m = int(grid[0].size());
+  queue<pair<int, int>> q;
+  vector<vector<int>> dist(n, vector<int>(m, 0));
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (grid[i][j] == '9') {
+        q.emplace(i, j);
+        dist[i][j] = 1;
+      }
+    }
+  }
+  while (!q.empty()) {
+    auto [i, j] = q.front();
+    q.pop();
+    if (grid[i][j] == '0')
+      continue;
+    for (int k = 0; k < 4; k++) {
+      int nx = i + dx[k], ny = j + dy[k];
+      if (nx < 0 || ny < 0 || nx >= n || ny >= m)
+        continue;
+      if (grid[nx][ny] == grid[i][j] - 1) {
+        if (dist[nx][ny] == 0)
+          q.emplace(nx, ny);
+        dist[nx][ny] += dist[i][j];
+      }
+    }
+  }
+  int ret = 0;
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      if (grid[i][j] == '0') {
+        ret += dist[i][j];
+      }
+    }
+  }
+  cout << ret << '\n';
+}
